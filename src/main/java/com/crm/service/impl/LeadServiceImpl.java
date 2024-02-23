@@ -2,6 +2,7 @@ package com.crm.service.impl;
 
 import com.crm.dto.LeadDto;
 import com.crm.entity.Lead;
+import com.crm.exception.LeadAlreadyExistsException;
 import com.crm.repository.LeadRepository;
 import com.crm.service.LeadService;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,14 @@ public class LeadServiceImpl implements LeadService {
 
     @Override
     public LeadDto saveLead(LeadDto leadDto) {
+        boolean email = leadRepository.existsByEmail(leadDto.getEmail());
+        if(email){
+            throw new LeadAlreadyExistsException("Email already exists:-"+leadDto.getEmail());
+        }
+        boolean mobile=leadRepository.existsByMobile(leadDto.getMobile());
+                if(mobile){
+            throw new LeadAlreadyExistsException("Mobile already exists:-"+leadDto.getMobile());
+        }
         leadDto.setLid(UUID.randomUUID().toString());
         Lead lead = modelMapper.map(leadDto, Lead.class);
         Lead saveLead = leadRepository.save(lead);
