@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Lead {
 
     @Id
-    private String id;
+    private String lid;
 
     @Column(name="first_name",nullable = false)
     private String firstName;
@@ -42,6 +42,9 @@ public class Lead {
 
     @Column(name = "designation")
     private String designation;
+
+    @Column(name="lead_type")
+    private String leadType;
 
     @Column(name="company")
     private String company;

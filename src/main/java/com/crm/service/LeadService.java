@@ -8,6 +8,6 @@ public interface LeadService {
 
     public LeadDto saveLead(LeadDto leadDto);
 
-    public void deleteLead(String id);
+    public void deleteLead(String lid);
     List<LeadDto> getAllLeads();
 }

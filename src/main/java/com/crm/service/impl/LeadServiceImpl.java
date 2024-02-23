@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -19,13 +20,14 @@ public class LeadServiceImpl implements LeadService {
 
     @Override
     public LeadDto saveLead(LeadDto leadDto) {
+        leadDto.setLid(UUID.randomUUID().toString());
         Lead lead = modelMapper.map(leadDto, Lead.class);
         Lead saveLead = leadRepository.save(lead);
        return modelMapper.map(saveLead, LeadDto.class);
     }
 
     @Override
-    public void deleteLead(String id) {
+    public void deleteLead(String lid) {
 
     }
 
