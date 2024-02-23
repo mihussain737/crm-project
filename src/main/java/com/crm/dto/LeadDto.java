@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LeadDto {
 
-    private String id;
+    private String lid;
     private String firstName;
     private String lastName;
     private String title;
@@ -20,6 +20,7 @@ public class LeadDto {
     private String address;
     private int zipCode;
     private String designation;
+    private String leadType;
     private String company;
     private String note;
 }
