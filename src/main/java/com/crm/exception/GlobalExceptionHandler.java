@@ -12,7 +12,25 @@ import java.util.Date;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(LeadAlreadyExistsException.class)
-    public ResponseEntity<ErrorDetails> LeadAlreadyExistExceptionHandler(Exception ex, WebRequest webRequest){
+    public ResponseEntity<ErrorDetails> LeadAlreadyExistExceptionHandler(Exception ex, WebRequest webRequest) {
+        ErrorDetails errorDetails = new ErrorDetails(
+                new Date(), ex.getMessage(), webRequest.getDescription(false)
+        );
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(LeadNotExistException.class)
+    public ResponseEntity<ErrorDetails> leadNotExistsExceptionHandler(Exception ex, WebRequest webRequest) {
+        ErrorDetails errorDetails = new ErrorDetails(
+                new Date(), ex.getMessage(), webRequest.getDescription(false)
+        );
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ContactNotExistException.class)
+    public ResponseEntity<ErrorDetails> contactNotExistExceptionHandler(Exception ex, WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(), ex.getMessage(), webRequest.getDescription(false)
         );
