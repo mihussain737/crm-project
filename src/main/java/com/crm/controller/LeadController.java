@@ -4,11 +4,17 @@ import com.crm.dto.LeadDto;
 import com.crm.dto.LeadResponse;
 import com.crm.entity.Lead;
 import com.crm.service.LeadService;
+import com.crm.service.impl.ExcelHelperService;
 import lombok.AllArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @RestController
@@ -39,5 +45,19 @@ public class LeadController {
     ){
         LeadResponse allLeads = leadService.getAllLeads(pageNo,pageSize,sortBy,sortDir);
         return allLeads;
+    }
+    //http://localhost:8080/api/leads/excelReports
+
+    @GetMapping("/excelReports")
+    public ResponseEntity<Resource> getLeadsExcelReport(){
+        List<Lead> leads=leadService.getLeadsExcelReports();
+        ByteArrayInputStream leadsReports = ExcelHelperService.leadsToExcel(leads);
+        String fileName="leadReports.xlsx";
+        InputStreamResource file = new InputStreamResource(leadsReports);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; fileName="+ fileName)
+                .contentType(MediaType.parseMediaType(("application/vnd.ms-excel")))
+                .body(file);
     }
 }

@@ -68,4 +68,10 @@ public class LeadServiceImpl implements LeadService {
         leadResponse.setLast(leads.isLast());
         return leadResponse;
     }
+
+    @Override
+    public List<Lead> getLeadsExcelReports() {
+        List<Lead> leads = leadRepository.findAll();
+        return leads;
+    }
 }
