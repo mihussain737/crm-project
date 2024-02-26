@@ -74,4 +74,10 @@ public class LeadServiceImpl implements LeadService {
         List<Lead> leads = leadRepository.findAll();
         return leads;
     }
+
+    @Override
+    public List<Lead> listAll() {
+
+        return  leadRepository.findAll();
+    }
 }

@@ -14,4 +14,6 @@ public interface LeadService {
     LeadResponse getAllLeads(int pageNo, int pageSize, String sortBy, String sortDir);
 
     List<Lead> getLeadsExcelReports();
+
+    public List<Lead> listAll();
 }
